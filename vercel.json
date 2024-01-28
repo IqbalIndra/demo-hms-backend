@@ -35,5 +35,6 @@
     "env": {
       "VERCEL_PHP_VERSION": "8.0"
     }
-  }
+  },
+  "public": true
 }
