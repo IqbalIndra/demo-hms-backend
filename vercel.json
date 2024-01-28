@@ -1,9 +1,9 @@
 {
     "version": 2,
     "functions": { 
-		"api/index.php": { 
-			"runtime": "@vercel-php@0.6.0" 
-		}
+        "api/index.php": { 
+            "runtime": "@vercel-php@0.6.0" 
+        }
     },
     "routes": [
         {
@@ -31,5 +31,5 @@
         "VIEW_COMPILED_PATH": "/tmp/views",
         "NODE_PATH": "node"
     },
-	"outputDirectory": "public"
+    "outputDirectory": "public"
 }
