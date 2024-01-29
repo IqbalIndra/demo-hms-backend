@@ -29,6 +29,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+#copy .env from .env.example
+RUN composer run-script post-root-package-install
+
 RUN npm install
 
 RUN npm run
