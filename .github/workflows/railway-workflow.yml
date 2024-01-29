@@ -20,7 +20,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '7.2'
           extensions: mbstring, dom, fileinfo
           coverage: none
 
@@ -32,12 +32,3 @@ jobs:
 
       - name: npm build
         run: npm run
-        
-      - name: Install railway cli
-        run: npm i -g @railway/cli
-        
-      - name: Deploy
-        run: RAILWAY_TOKEN=$RAILWAY_TOKEN railway up --service=$RAILWAY_SERVICE_NAME -d
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_SERVICE_NAME: ${{ secrets.RAILWAY_SERVICE_NAME}}
