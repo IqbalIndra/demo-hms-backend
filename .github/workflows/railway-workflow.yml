@@ -26,9 +26,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Copy .env.ci.example to .env
-        run: cp .env.example .env
-
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -38,6 +35,9 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction
+
+      - name: Copy .env from .env.example
+        run: composer run-script post-root-package-install
 
       - name: config clear
         run: php artisan config:clear
