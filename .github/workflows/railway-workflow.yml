@@ -20,12 +20,12 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.2'
+          php-version: '8.2'
           extensions: mbstring, dom, fileinfo
           coverage: none
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction
+        run: composer update
 
       - name: Install npm dependencies
         run: npm install
