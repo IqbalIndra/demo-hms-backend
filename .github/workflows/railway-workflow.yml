@@ -44,5 +44,8 @@ jobs:
       - name: npm build
         run: npm run
 
+      - name: config clear
+        run: php artisan config:clear
+
       - name: Migrate database
-        run: php artisan migrate:fresh --seed
+        run: php artisan migrate
