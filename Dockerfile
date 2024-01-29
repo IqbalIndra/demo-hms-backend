@@ -2,7 +2,7 @@ FROM php:7.2-apache
 
 # Install required packages
 RUN apt-get update && apt-get install -y \
-    libmysql-dev \
+    libmysqlclient-dev \
     libzip-dev
 
 # Clean sources
