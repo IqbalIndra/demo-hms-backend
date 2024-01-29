@@ -10,6 +10,17 @@ jobs:
   laravel-test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: mysql:8.3
+        env:
+          MYSQL_DATABASE: hms-db
+          MYSQL_ROOT_PASSWORD: hmsdb123!@#
+          MYSQL_PASSWORD: hmsdb123!@#
+          MYSQL_USER: hms
+        ports:
+          - 3306:3306
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -21,21 +32,17 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.2'
-          extensions: mbstring, dom, fileinfo
+          extensions: pdo_mysql
           coverage: none
 
       - name: Install dependencies
-        run: composer update
+        run: composer install --prefer-dist --no-interaction
 
       - name: Install npm dependencies
         run: npm install
 
       - name: npm build
         run: npm run
-      - name: Install railway cli
-        run: npm i -g @railway/cli
-      - name: Deploy
-        run: RAILWAY_TOKEN=$RAILWAY_TOKEN railway up --service=$RAILWAY_SERVICE_NAME -d
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_SERVICE_NAME: ${{ secrets.RAILWAY_SERVICE_NAME}}
+
+      - name: Migrate database
+        run: php artisan migrate:fresh --seed
