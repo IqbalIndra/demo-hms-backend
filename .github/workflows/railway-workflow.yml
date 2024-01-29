@@ -38,14 +38,12 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction
 
-      - name: Install npm dependencies
-        run: npm install
-
-      - name: npm build
-        run: npm run
-
       - name: config clear
         run: php artisan config:clear
+        
       - name: Verify MySQL connection
         run: |
           mysql --host 127.0.0.1 --port 3306 -uhms -phmsdb123!@# -e "SHOW DATABASES"
+          
+      - name: Migrate database
+        run: php artisan migrate
