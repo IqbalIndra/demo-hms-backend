@@ -48,7 +48,4 @@ jobs:
         run: php artisan config:clear
       - name: Verify MySQL connection
         run: |
-          mysql --host 127.0.0.1 --port 3306 -uhms -phmsdb123!@# -e "SHOW DATABASES"
-
-      - name: Migrate database
-        run: php artisan migrate
+          mysql --host 127.0.0.1 --port 33306 -uhms -phmsdb123!@# -e "SHOW DATABASES"
