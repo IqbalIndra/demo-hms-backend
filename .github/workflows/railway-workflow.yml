@@ -35,3 +35,9 @@ jobs:
 
       - name: Migrate database
         run: php artisan migrate
+      - name: Install railway cli
+        run: npm i -g @railway/cli
+      - name: Deploy
+        run: RAILWAY_TOKEN=$RAILWAY_TOKEN railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
