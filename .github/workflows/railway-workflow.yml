@@ -31,12 +31,14 @@ jobs:
         run: npm install
 
       - name: npm build
-        run: npm run build
+        run: npm run
 
       - name: Migrate database
-        run: php artisan migrate
+        run: php artisan migrate:fresh --seed
+        
       - name: Install railway cli
         run: npm i -g @railway/cli
+        
       - name: Deploy
         run: RAILWAY_TOKEN=$RAILWAY_TOKEN railway up
         env:
