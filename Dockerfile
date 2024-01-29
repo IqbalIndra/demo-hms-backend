@@ -36,8 +36,5 @@ RUN npm run
 # Clear cache
 RUN php artisan optimize:clear
 
-# Migration
-RUN mysql --host viaduct.proxy.rlwy.net --port 33640 -uroot -pHfH3-f635cHD5BdCGf2-dDDAc622Dfb6 -e "SHOW DATABASES"
-
 # Expose port 80 for Apache
 EXPOSE 80
