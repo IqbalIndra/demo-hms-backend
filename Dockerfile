@@ -37,7 +37,7 @@ RUN npm run
 RUN php artisan optimize:clear
 
 # Migration
-RUN php artisan migrate:fresh --seed
+RUN php artisan migrate --force
 
 # Expose port 80 for Apache
 EXPOSE 80
