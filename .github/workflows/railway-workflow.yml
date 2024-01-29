@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Copy .env.ci.example to .env
-        run: cp .env.ci.example .env
+        run: cp .env.example .env
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
