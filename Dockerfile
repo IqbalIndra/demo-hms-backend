@@ -1,5 +1,8 @@
 FROM php:7.2-apache
 
+# Specify the variable you need
+ARG RAILWAY_SERVICE_NAME
+
 # Install required packages
 RUN apt-get update && apt-get install -y \
     libzip-dev \
@@ -34,10 +37,14 @@ RUN composer run-script post-root-package-install
 
 RUN npm install
 
-RUN npm run
+RUN npm run prod
 
 # Clear cache
 RUN php artisan optimize:clear
+
+# Use the varible
+RUN echo $RAILWAY_SERVICE_NAME
+
 
 # migration
 RUN php artisan migrate --force
