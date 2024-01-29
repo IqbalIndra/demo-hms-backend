@@ -1,0 +1,37 @@
+name: Laravel Test deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  laravel-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Copy .env.ci.example to .env
+        run: cp .env.ci.example .env
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.2'
+          extensions: mbstring, dom, fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: npm build
+        run: npm run build
+
+      - name: Migrate database
+        run: php artisan migrate
