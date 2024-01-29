@@ -35,6 +35,13 @@ RUN npm run
 
 # Clear cache
 RUN php artisan optimize:clear
+RUN php artisan config:cache
+RUN php artisan event:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+
+#Migration
+RUN php artisan migrate:fresh --seed
 
 # Expose port 80 for Apache
 EXPOSE 80
