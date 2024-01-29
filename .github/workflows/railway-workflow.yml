@@ -19,7 +19,7 @@ jobs:
           MYSQL_PASSWORD: hmsdb123!@#
           MYSQL_USER: hms
         ports:
-          - 3306:3306
+          - 33306:3306
 
     steps:
       - name: Checkout code
