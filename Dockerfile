@@ -2,7 +2,9 @@ FROM php:7.2-apache
 
 # Install required packages
 RUN apt-get update && apt-get install -y \
-    libzip-dev
+    libzip-dev \
+    npm \
+    curl
 
 # Clean sources
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -26,6 +28,15 @@ WORKDIR /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
+
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest
+
+RUN npm run build
+
+# Clear cache
+RUN php artisan optimize:clear
 
 # Expose port 80 for Apache
 EXPOSE 80
