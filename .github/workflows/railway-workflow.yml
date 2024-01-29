@@ -19,7 +19,7 @@ jobs:
           MYSQL_PASSWORD: hmsdb123!@#
           MYSQL_USER: hms
         ports:
-          - 33306:3306
+          - 3306:3306
 
     steps:
       - name: Checkout code
@@ -48,4 +48,4 @@ jobs:
         run: php artisan config:clear
       - name: Verify MySQL connection
         run: |
-          mysql --host 127.0.0.1 --port 33306 -uhms -phmsdb123!@# -e "SHOW DATABASES"
+          mysql --host 127.0.0.1 --port 3306 -uhms -phmsdb123!@# -e "SHOW DATABASES"
