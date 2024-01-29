@@ -15,8 +15,9 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: hms-db
-          MYSQL_ROOT_PASSWORD: hmsdb123!@#
+          MYSQL_ROOT_PASSWORD: secret
           MYSQL_PASSWORD: hmsdb123!@#
+          MYSQL_ROOT_USER: root
           MYSQL_USER: hms
         ports:
           - 3306:3306
@@ -43,7 +44,7 @@ jobs:
         
       - name: Verify MySQL connection
         run: |
-          mysql --host 127.0.0.1 --port 3306 -uhms -phmsdb123!@# -e "SHOW DATABASES"
+          mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "SHOW DATABASES"
           
       - name: Migrate database
         run: php artisan migrate
