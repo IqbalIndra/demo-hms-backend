@@ -48,4 +48,10 @@ jobs:
         run: php artisan config:clear
 
       - name: Migrate database
+        env:
+          DB_CONNECTION: mysql
+          DB_DATABASE: hms-db
+          DB_PORT: 33306
+          DB_USER: hms
+          DB_PASSWORD: hmsdb123!@#
         run: php artisan migrate
