@@ -13,6 +13,7 @@ ENV DB_PORT=$DB_PORT
 ENV DB_DATABASE=$DB_DATABASE
 ENV DB_USERNAME=$DB_USERNAME
 ENV DB_PASSWORD=$DB_PASSWORD
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -118,6 +119,8 @@ RUN php artisan passport:install
 
 RUN echo "Starting queue worker in the background..."
 RUN nohup php artisan queue:work --daemon >> storage/logs/laravel.log &
+
+RUN echo "APP_KEY : ${APP_KEY}"
 
 
 EXPOSE 80
