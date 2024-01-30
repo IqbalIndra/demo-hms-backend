@@ -111,9 +111,6 @@ RUN php artisan optimize:clear
 # migration
 RUN php artisan migrate --force
 
-RUN echo "Running db:seed"
-RUN php artisan db:seed --class=UserSeeder
-
 RUN echo "Installing Passport..."
 RUN php artisan passport:install
 
