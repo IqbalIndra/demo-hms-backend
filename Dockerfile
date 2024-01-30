@@ -100,11 +100,25 @@ RUN composer install --no-dev --optimize-autoloader
 #copy .env from .env.example
 RUN composer run-script post-root-package-install
 
+RUN echo "Generating application key..."
+RUN php artisan key:generate
+
+
 # Clear cache
 RUN php artisan optimize:clear
 
 # migration
 RUN php artisan migrate --force
+
+RUN echo "Running db:seed"
+RUN php artisan db:seed --class=UserSeeder
+
+RUN echo "Installing Passport..."
+RUN php artisan passport:install
+
+RUN echo "Starting queue worker in the background..."
+RUN nohup php artisan queue:work --daemon >> storage/logs/laravel.log &
+
 
 EXPOSE 80
 
