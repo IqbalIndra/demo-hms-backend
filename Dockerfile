@@ -60,9 +60,9 @@ RUN echo "\
         root /var/www/html/public;\n\
         add_header X-Frame-Options \"SAMEORIGIN\";\n\
         add_header X-Content-Type-Options \"nosniff\";\n\
-        add_header Access-Control-Allow-Origin \"*"\" always;\n\
-        add_header Access-Control-Allow-Methods \"*"\" always;\n\
-        add_header Access-Control-Allow-Headers \"*"\" always;\n\
+        add_header Access-Control-Allow-Origin \'*\' always;\n\
+        add_header Access-Control-Allow-Methods \'*\' always;\n\
+        add_header Access-Control-Allow-Headers \'*\' always;\n\
         index index.php;\n\
         charset utf-8;\n\
         location / {\n\
