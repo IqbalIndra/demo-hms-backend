@@ -57,7 +57,5 @@ RUN php artisan optimize:clear
 # migration
 RUN php artisan migrate --force
 
-RUN php artisan up
-
 # Expose port 80 for Apache
 EXPOSE 80
