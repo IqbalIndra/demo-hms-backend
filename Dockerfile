@@ -8,8 +8,9 @@ ARG DB_DATABASE
 ARG DB_USERNAME
 ARG DB_PASSWORD
 ARG APP_URL
-ARG HOST
+ARG PORT
 ARG APP_KEY
+ARG APP_ENV
 
 ENV DB_HOST=$DB_HOST
 ENV DB_PORT=$DB_PORT
@@ -18,7 +19,8 @@ ENV DB_USERNAME=$DB_USERNAME
 ENV DB_PASSWORD=$DB_PASSWORD
 ENV APP_URL=$APP_URL
 ENV APP_KEY=$APP_KEY
-ENV HOST=$HOST
+ENV PORT=$PORT
+ENV APP_ENV=$APP_ENV
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 
@@ -114,6 +116,12 @@ RUN php artisan key:generate
 # Clear cache
 RUN php artisan optimize:clear
 
+RUN echo "Caching config..."
+RUN php artisan config:cache
+
+RUN echo "Caching routes..."
+RUN php artisan route:cache
+
 # migration
 RUN php artisan migrate --force
 
@@ -123,7 +131,7 @@ RUN php artisan passport:install
 RUN echo "Starting queue worker in the background..."
 RUN nohup php artisan queue:work --daemon >> storage/logs/laravel.log &
 
-RUN echo "APP_KEY : ${APP_KEY}"
+RUN echo "PORT : ${PORT}"
 
 
 EXPOSE 80
