@@ -116,13 +116,11 @@ RUN php artisan key:generate
 
 
 # Clear cache
-#RUN php artisan optimize:clear
+RUN php artisan optimize:clear
 
 RUN echo "Caching config..."
 RUN php artisan config:cache
 
-RUN echo "Caching routes..."
-RUN php artisan route:cache
 
 # migration
 RUN php artisan migrate --force
