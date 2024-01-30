@@ -11,6 +11,7 @@ ARG APP_URL
 ARG PORT
 ARG APP_KEY
 ARG APP_ENV
+ARG RAILWAY_PUBLIC_DOMAIN
 
 ENV DB_HOST=$DB_HOST
 ENV DB_PORT=$DB_PORT
@@ -62,11 +63,13 @@ RUN apt install -y nodejs
 
 # Install nginx
 RUN apt install -y nginx
+RUN echo "PORT $PORT"
+RUN echo "DOMAIN : $RAILWAY_PUBLIC_DOMAIN"
 RUN echo "\
     server {\n\
         listen 80;\n\
         listen [::]:80;\n\
-        server_name _;\n\
+        server_name $RAILWAY_PUBLIC_DOMAIN;\n\
         root /var/www/html/public;\n\
         sendfile off;\n\
         add_header X-Frame-Options \"SAMEORIGIN\";\n\
@@ -131,7 +134,6 @@ RUN php artisan passport:install
 RUN echo "Starting queue worker in the background..."
 RUN nohup php artisan queue:work --daemon >> storage/logs/laravel.log &
 
-RUN echo "PORT : ${PORT}"
 
 
 EXPOSE 80
