@@ -116,7 +116,7 @@ RUN php artisan key:generate
 
 
 # Clear cache
-RUN php artisan optimize:clear
+#RUN php artisan optimize:clear
 
 RUN echo "Caching config..."
 RUN php artisan config:cache
