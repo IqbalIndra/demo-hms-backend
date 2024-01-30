@@ -66,13 +66,15 @@ RUN echo "\
     server {\n\
         listen 80;\n\
         listen [::]:80;\n\
+        server_name _;\n\
         root /var/www/html/public;\n\
+        sendfile off;\n\
         add_header X-Frame-Options \"SAMEORIGIN\";\n\
         add_header X-Content-Type-Options \"nosniff\";\n\
         add_header Access-Control-Allow-Origin \'*\' always;\n\
         add_header Access-Control-Allow-Methods \'*\' always;\n\
         add_header Access-Control-Allow-Headers \'*\' always;\n\
-        index index.php;\n\
+        index index.html index.htm index.php;\n\
         charset utf-8;\n\
         location / {\n\
             try_files \$uri \$uri/ /index.php?\$query_string;\n\
