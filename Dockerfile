@@ -47,19 +47,15 @@ RUN composer install --no-dev --optimize-autoloader
 #copy .env from .env.example
 RUN composer run-script post-root-package-install
 
-#RUN npm install
+RUN npm install
 
-#RUN npm run prod
+RUN npm run prod
 
 # Clear cache
-#RUN php artisan optimize:clear
+RUN php artisan optimize:clear
 
 # migration
-#RUN php artisan migrate --force
-
-RUN echo $DB_HOST;
-RUN echo $DB_PORT;
-RUN echo $DB_DATABASE;
+RUN php artisan migrate --force
 
 # Expose port 80 for Apache
 EXPOSE 80
