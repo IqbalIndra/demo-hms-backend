@@ -102,7 +102,6 @@ RUN echo "\
     #!/bin/sh\n\
     echo \"Starting services...\"\n\
     service php7.2-fpm start\n\
-    nginx -g \"daemon off;\" &\n\
     echo \"Ready.\"\n\
     tail -s 1 /var/log/nginx/*.log -f\n\
     " > /start.sh
