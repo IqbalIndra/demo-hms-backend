@@ -105,7 +105,7 @@ RUN echo "\
     nginx\n\
     echo \"Ready.\"\n\
     tail -s 1 /var/log/nginx/*.log -f\n\
-    ls -lah /var/www\n\
+    ls -lah /var/www/html\n\
     " > /start.sh
 
 COPY . /var/www/html
