@@ -61,6 +61,9 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN apt update
 RUN apt install -y nodejs
 
+RUN echo "check .conf"
+RUN cat /etc/php/7.2/fpm/pool.d/www.conf
+
 # Install nginx
 RUN apt install -y nginx
 RUN echo "PORT $PORT"
