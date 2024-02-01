@@ -102,10 +102,10 @@ RUN echo "\
     #!/bin/sh\n\
     echo \"Starting services...\"\n\
     service php7.2-fpm start\n\
-    nginx -t\n\
-    systemctl restart nginx\n\
+    nginx\n\
     echo \"Ready.\"\n\
     tail -s 1 /var/log/nginx/*.log -f\n\
+    ls -lah /var/www\n\
     " > /start.sh
 
 COPY . /var/www/html
@@ -120,7 +120,6 @@ RUN composer run-script post-root-package-install
 
 RUN echo "Generating application key..."
 RUN php artisan key:generate
-
 
 # Clear cache
 RUN php artisan optimize:clear
