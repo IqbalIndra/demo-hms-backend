@@ -61,10 +61,9 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN apt update
 RUN apt install -y nodejs
 
+
 # Install nginx
 RUN apt install -y nginx
-RUN echo "PORT $PORT"
-RUN echo "DOMAIN : $RAILWAY_PUBLIC_DOMAIN"
 RUN echo "\
     server {\n\
         listen 80;\n\
@@ -102,7 +101,6 @@ RUN echo "\
     nginx\n\
     echo \"Ready.\"\n\
     tail -s 1 /var/log/nginx/*.log -f\n\
-    ls -lah /var/www/html\n\
     " > /start.sh
 
 COPY . /var/www/html
@@ -110,8 +108,31 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
-RUN echo "Check file git nya !"
-RUN echo $(ls -lah /var/www/html)
+RUN composer install --no-dev --optimize-autoloader
+
+#copy .env from .env.example
+RUN composer run-script post-root-package-install
+
+RUN echo "Generating application key..."
+RUN php artisan key:generate
+
+# Clear cache
+RUN php artisan optimize:clear
+
+RUN echo "Caching config..."
+RUN php artisan config:cache
+
+
+# migration
+RUN php artisan migrate --force
+
+RUN echo "Installing Passport..."
+RUN php artisan passport:install
+
+RUN echo "Starting queue worker in the background..."
+RUN nohup php artisan queue:work --daemon >> storage/logs/laravel.log &
+
+RUN cd /var/www/html && echo $(ls) 
 
 
 
