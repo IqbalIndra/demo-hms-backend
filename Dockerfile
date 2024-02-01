@@ -61,9 +61,6 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN apt update
 RUN apt install -y nodejs
 
-RUN echo "check .conf"
-RUN cat /etc/php/7.2/fpm/pool.d/www.conf
-
 # Install nginx
 RUN apt install -y nginx
 RUN echo "PORT $PORT"
@@ -113,29 +110,8 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
-RUN composer install --no-dev --optimize-autoloader
-
-#copy .env from .env.example
-RUN composer run-script post-root-package-install
-
-RUN echo "Generating application key..."
-RUN php artisan key:generate
-
-# Clear cache
-RUN php artisan optimize:clear
-
-RUN echo "Caching config..."
-RUN php artisan config:cache
-
-
-# migration
-RUN php artisan migrate --force
-
-RUN echo "Installing Passport..."
-RUN php artisan passport:install
-
-RUN echo "Starting queue worker in the background..."
-RUN nohup php artisan queue:work --daemon >> storage/logs/laravel.log &
+RUN echo "Check file git nya !"
+RUN echo $(ls -lah /var/www/html)
 
 
 
