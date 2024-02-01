@@ -51,4 +51,4 @@ jobs:
 
       - name: check folder www
         run: |
-          ls -lah /var/www
+          ls -lah /var/www/html
