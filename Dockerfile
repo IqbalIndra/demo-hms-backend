@@ -102,6 +102,8 @@ RUN echo "\
     #!/bin/sh\n\
     echo \"Starting services...\"\n\
     service php7.2-fpm start\n\
+    nginx -t\n\
+    systemctl restart nginx\n\
     echo \"Ready.\"\n\
     tail -s 1 /var/log/nginx/*.log -f\n\
     " > /start.sh
